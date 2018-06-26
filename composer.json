@@ -1,0 +1,21 @@
+{
+    "name": "technodelight/symfony-configuration-cli-initialiser",
+    "description": "Initialise your Symfony configuration in CLI interactively",
+    "type": "library",
+    "require": {
+        "symfony/config": "^2.7",
+        "symfony/console": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Technodelight\\SymfonyConfigurationInitialiser\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zsolt Gál",
+            "email": "zenc@zenc.hu"
+        }
+    ]
+}
