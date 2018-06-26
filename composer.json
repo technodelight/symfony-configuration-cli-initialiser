@@ -3,7 +3,7 @@
     "description": "Initialise your Symfony configuration in CLI interactively",
     "type": "library",
     "require": {
-        "symfony/config": "^2.7",
+        "symfony/config": "^2.7||^3.0",
         "symfony/console": "^2.7"
     },
     "autoload": {
