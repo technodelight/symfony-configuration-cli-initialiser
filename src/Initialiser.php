@@ -4,6 +4,7 @@ namespace Technodelight\SymfonyConfigurationInitialiser;
 
 use Symfony\Component\Config\Definition\ArrayNode;
 use Symfony\Component\Config\Definition\BaseNode;
+use Symfony\Component\Config\Definition\BooleanNode;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\PrototypedArrayNode;
 use Symfony\Component\Config\Definition\PrototypeNodeInterface;
@@ -117,14 +118,19 @@ class Initialiser
     private function readline(BaseNode $node, InputInterface $input, OutputInterface $output)
     {
         if ($node->hasDefaultValue()) {
-            $q = new Question('Please enter a value for ' . get_class($node) . ' (' . $node->getDefaultValue() . '): ', $node->getDefaultValue());
+            $q = new Question('Please enter a value for ' . get_class($node) . ' (' . var_export($node->getDefaultValue(), true) . '): ', $node->getDefaultValue());
         } else {
             $q = new Question('Please enter a value for ' . get_class($node) . ': ');
         }
         if ($node->getName() == 'password' || $node->getAttribute('hidden') === true) {
             $q->setHidden(true);
         }
-        return $this->q->ask($input, $output, $q);
+        $value = $this->q->ask($input, $output, $q);
+        if ($node instanceof BooleanNode) {
+            return null !== $value ? preg_match('~[1yY]{1}|true|yes~i', $value) : null;
+        }
+
+        return $value;
     }
 
     private function confirm($confirm, InputInterface $input, OutputInterface $output)
